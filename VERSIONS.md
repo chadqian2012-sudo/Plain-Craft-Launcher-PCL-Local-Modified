@@ -18,3 +18,5 @@ Inventory date: 2026-10-24. This table covers the PCL launcher executables and u
 - Offline-account support refers to launcher sign-in mode. Downloading Minecraft files still requires an internet connection.
 - Release ZIPs exclude `.git` history, game directories, account configuration, logs, and world saves.
 - This inventory is limited to files that could be verified in the available project and backup folders on the inventory date. It does not claim to recover or identify files that are no longer present.
+
+- GitHub 的 Contributors 基于默认分支上真实可达的提交作者；`main` 保留上游 PCL 至 2.99.0.0 的实际提交历史，因此原作者与上游贡献者按原提交署名显示。没有伪造共同作者记录。
