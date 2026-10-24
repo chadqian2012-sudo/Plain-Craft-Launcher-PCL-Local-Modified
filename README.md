@@ -1,8 +1,17 @@
 # Plain Craft Launcher (PCL) 本地修改版 2.99.1
 
-**Third-party modification of PCL 2.99.0.0. Not an official PCL release.**
+**Third-party modification based on PCL 2.99.0.0. This is not an official PCL release.**
 
 This public repository contains the upstream source snapshot, the targeted patch tool source, and the modified launcher release package. The launcher disables its self-updater and restores the original-game download entry, including for offline accounts. Game files still require network access.
+
+## Version archive
+
+See [VERSIONS.md](VERSIONS.md) for the modification status and declarations for every locally verified version archived here:
+
+- `2.13.1.1` — upstream original, unmodified.
+- `2.99.0.0` — upstream original, unmodified.
+- `2.99.0.0 local` — third-party modified historical build.
+- `2.99.1 local` — current third-party modified release.
 
 ## Contributors
 
@@ -17,7 +26,7 @@ See [CONTRIBUTORS.md](CONTRIBUTORS.md), [release notes](发布说明.md), and [u
 - Upstream PCL repository: https://github.com/Meloong-Git/PCL
 - Original author support: https://meloong.com/afd/a/LTCat
 
-## Download
+## Current download
 
 See the GitHub Release tagged `v2.99.1` for the ZIP containing the launcher and sources. The ZIP does not include `.git` history, Minecraft game files, account data, logs, or world saves.
 
