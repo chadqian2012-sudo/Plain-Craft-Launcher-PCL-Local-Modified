@@ -1,5 +1,7 @@
 # PCL 本地修改版 2.99.3
 
+当前正式版：[2.99.2](https://github.com/chadqian2012-sudo/Plain-Craft-Launcher-PCL-Local-Modified/releases/tag/v2.99.2)。新增可选仓库更新的 [2.99.3 预发布版](https://github.com/chadqian2012-sudo/Plain-Craft-Launcher-PCL-Local-Modified/releases/tag/v2.99.3) 已完成 Windows MCP 实机操作验收，完整范围见 [验收记录](verification/GUI-ACCEPTANCE-2.99.3.md) 和 [发布说明](Release-notes-2.99.3.md)。
+
 本次增加从 chadqian2012-sudo/Plain-Craft-Launcher-PCL-Local-Modified 的 GitHub Releases 检查正式版本，并提供非强制更新。旧上游更新仍然禁用，原作者及上游链接保留。
 
 ## 更新行为
