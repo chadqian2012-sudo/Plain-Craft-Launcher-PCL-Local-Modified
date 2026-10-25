@@ -1,0 +1,166 @@
+{
+  "inputSha256": "6B6E1260CB5A1D6A303855F1C60CAB3D0BC1AEBBA7E40A964180188B271E7386",
+  "outputSha256": "D617A3CE70AC4708D3A93D60BB386C49D29A8C82BD61ADF05A4A56DE0DB94EB7",
+  "baseVersion": "2.99.0.0",
+  "releaseVersion": "2.99.2",
+  "product": "Plain Craft Launcher (PCL) \u672C\u5730\u4FEE\u6539\u7248 2.99.2 \u5F00\u53D1\u9884\u89C8",
+  "totalMethods": 6339,
+  "changedMethods": 21,
+  "unchangedMethods": 6318,
+  "embeddedResources": 2,
+  "allEmbeddedResourcesUnchanged": true,
+  "companionFile": "PclLocalTools.dll",
+  "companionSha256": "5239C03D273468D75FAB7870E22AA5F7D0AA904F276E828FB72DA7074683A129",
+  "addedAssemblyReferences": [
+    "PclLocalTools, Version=2.99.2.0, Culture=neutral, PublicKeyToken=null"
+  ],
+  "verifiedToolboxHostBindings": [
+    "PCL.PageOtherAbout.PanMain",
+    "PCL.PageOtherAbout.BtnAboutUpdate",
+    "PCL.MyButton.Text",
+    "PCL.PageInstanceOverall.PanMain",
+    "PCL.PageDownloadInstall.PanInner",
+    "PCL.ModMinecraft.McFolderSelected",
+    "PCL.ModMinecraft.McFolderList",
+    "PCL.PageInstanceLeft.Instance",
+    "PCL.ModMinecraft/McInstance.PathVersion",
+    "PCL.ModMinecraft/McInstance.PathIndie",
+    "PCL.ModMinecraft/McFolder.Name",
+    "PCL.ModMinecraft/McFolder.Location",
+    "PCL.ModMinecraft/McFolder.Type",
+    "PCL.Settings.GetSafe",
+    "PCL.Settings.SetSafe"
+  ],
+  "modifications": [
+    {
+      "method": "System.Void PCL.ModSecret::UpdateCheckByButton()",
+      "reason": "Remove launcher self-update implementation.",
+      "beforeSha256": "190A0FB3581E1F3BE9C10BB014E9FB859C0B6C11C762E4D9CB0F54D54D120F3B",
+      "afterSha256": "F0FF6B8CDDD25266B895D2C515560BE32677432F0A57940060219F762A4F02A8"
+    },
+    {
+      "method": "System.Void PCL.ModSecret::UpdateStart(System.Boolean,System.Collections.Generic.IEnumerable\u00601\u003CSystem.String\u003E)",
+      "reason": "Remove launcher self-update implementation.",
+      "beforeSha256": "47FB54FE656862C8C59EBC98D5725C0B3CE803695806E09176EF46D7CD0279AD",
+      "afterSha256": "D2BFB77F04C75E049C06435EDD681A10B9D51C673D5A5ED0F564E143B0F57A6F"
+    },
+    {
+      "method": "System.Void PCL.ModSecret::UpdateRestart(System.Boolean)",
+      "reason": "Remove launcher self-update implementation.",
+      "beforeSha256": "46A26E29A2C51D0EAFE83B24C16A8953448661FCDBED4959DD0881F7D0420EE8",
+      "afterSha256": "D2BFB77F04C75E049C06435EDD681A10B9D51C673D5A5ED0F564E143B0F57A6F"
+    },
+    {
+      "method": "System.Void PCL.ModSecret::UpdateReplace(System.Int32,System.String,System.String,System.Boolean)",
+      "reason": "Remove launcher self-update implementation.",
+      "beforeSha256": "9AC55D0ACF379387A4B4C21D588407CD947CCE49CFBFB1FAF395C92B5FB7743B",
+      "afterSha256": "D2BFB77F04C75E049C06435EDD681A10B9D51C673D5A5ED0F564E143B0F57A6F"
+    },
+    {
+      "method": "System.Void PCL.ModSecret::ServerSub(PCL.ModLoader/LoaderTask\u00602\u003CSystem.Int32,System.Int32\u003E)",
+      "reason": "Skip self-update announcements and update actions; retain server config and other announcement behavior.",
+      "beforeSha256": "2A13D7975A9E7307CDD5073DA44DC61A6E8C3D50C91E959F114985769D51E4A0",
+      "afterSha256": "BC7B1493F497C705DD2020C3AAF9EC74EE147F596CDA9135D6011A1D11E1CB7C"
+    },
+    {
+      "method": "System.Void PCL.ModSecret/_Closure$__::_Lambda$__40-0()",
+      "reason": "Remove the updater\u0027s generated download, patching, replacement, and restart worker.",
+      "beforeSha256": "2D5BF88D2F9E8BD21B26DB72A6AD2F2C06B7D8673192C79B45A95BCE40564694",
+      "afterSha256": "D2BFB77F04C75E049C06435EDD681A10B9D51C673D5A5ED0F564E143B0F57A6F"
+    },
+    {
+      "method": "System.String PCL.ModSecret/_Closure$__::_Lambda$__43-1(System.String)",
+      "reason": "Remove the updater\u0027s generated worker and return an inert default value.",
+      "beforeSha256": "5245CE07A55921F704761C01F9E46D56517D277D08C24DB3957968B0B56303C3",
+      "afterSha256": "5DB4298DA86C54F12E8F188F73EBAA0C557E678668F8278CB253A184FD1170F6"
+    },
+    {
+      "method": "System.Void PCL.ModSecret/_Closure$__43-1::_Lambda$__0(PCL.ModLoader/LoaderTask\u00602\u003CSystem.String,System.Collections.Generic.List\u00601\u003CPCL.ModNet/NetFile\u003E\u003E)",
+      "reason": "Remove the updater\u0027s generated download, patching, replacement, and restart worker.",
+      "beforeSha256": "F1C05EA466D8E4DDCE943E06927128052D0A3EA2045DF26292C931501E5D99B5",
+      "afterSha256": "D2BFB77F04C75E049C06435EDD681A10B9D51C673D5A5ED0F564E143B0F57A6F"
+    },
+    {
+      "method": "System.Void PCL.ModSecret/_Closure$__43-1::_Lambda$__R1(PCL.ModLoader/LoaderTask\u00602\u003CSystem.String,System.Int32\u003E)",
+      "reason": "Remove the updater\u0027s generated download, patching, replacement, and restart worker.",
+      "beforeSha256": "95CB6040ECDD98F1117FDDF453EF441F4E8123BB9A6DEDBBE34D402889E82D23",
+      "afterSha256": "D2BFB77F04C75E049C06435EDD681A10B9D51C673D5A5ED0F564E143B0F57A6F"
+    },
+    {
+      "method": "System.Void PCL.ModSecret/_Closure$__43-1::_Lambda$__2()",
+      "reason": "Remove the updater\u0027s generated download, patching, replacement, and restart worker.",
+      "beforeSha256": "EF659846A970E1FB812D58073458B4AA36574CD3E6A7AE9F64AE06225766C19A",
+      "afterSha256": "D2BFB77F04C75E049C06435EDD681A10B9D51C673D5A5ED0F564E143B0F57A6F"
+    },
+    {
+      "method": "System.Void PCL.ModSecret/_Closure$__43-1::_Lambda$__R2(PCL.ModLoader/LoaderBase)",
+      "reason": "Remove the updater\u0027s generated download, patching, replacement, and restart worker.",
+      "beforeSha256": "FA4C22C21AA05997471996F7030BF50087BC21E36EEB4805AF9E2EF6B9A5AFD2",
+      "afterSha256": "D2BFB77F04C75E049C06435EDD681A10B9D51C673D5A5ED0F564E143B0F57A6F"
+    },
+    {
+      "method": "System.Void PCL.ModSecret/_Closure$__43-1::_Lambda$__3()",
+      "reason": "Remove the updater\u0027s generated download, patching, replacement, and restart worker.",
+      "beforeSha256": "2F86D670CE80A57C5E64C236E2181943E8701ECAA11488D527BBD3A02F7F8883",
+      "afterSha256": "D2BFB77F04C75E049C06435EDD681A10B9D51C673D5A5ED0F564E143B0F57A6F"
+    },
+    {
+      "method": "System.Void PCL.ModSecret/_Closure$__43-1::_Lambda$__4()",
+      "reason": "Remove the updater\u0027s generated download, patching, replacement, and restart worker.",
+      "beforeSha256": "AAC835D388B9C195EFAFAF9F8D477C6C743BA31CD48334CC57CD8FBA33541517",
+      "afterSha256": "D2BFB77F04C75E049C06435EDD681A10B9D51C673D5A5ED0F564E143B0F57A6F"
+    },
+    {
+      "method": "System.String PCL.ModSecret/_Closure$__46-0::_Lambda$__0(System.String)",
+      "reason": "Remove the updater\u0027s generated worker and return an inert default value.",
+      "beforeSha256": "8814A220FEF818091BEF2D7CC2862167CC667488552686405C02E378424EE1ED",
+      "afterSha256": "5DB4298DA86C54F12E8F188F73EBAA0C557E678668F8278CB253A184FD1170F6"
+    },
+    {
+      "method": "System.Void PCL.PageDownloadInstall::LoaderInit()",
+      "reason": "Restore the existing DlClientListLoader instead of the disabled-download error loader.",
+      "beforeSha256": "A7226B4C62FB108CD8183DD3994910AE98F467616BC514D08276E96F09E3FA55",
+      "afterSha256": "19B05504812236CD4D167AC208B2AC028F578B319B8E6B9ACF436BFCAB31A3C4"
+    },
+    {
+      "method": "System.Void PCL.PageDownloadInstall::Init()",
+      "reason": "Add the explicit local-tools UI entry; retain original page behavior.",
+      "beforeSha256": "FD5153BDDF91ECC9C7C2752D0E4F4B51A7233A3A989E8F873A931954CB3CB984",
+      "afterSha256": "DEF3141C59C91C4644319DD915DD3084C7803A13241B00142AF16F3738973C8F"
+    },
+    {
+      "method": "System.String PCL.PageDownloadInstall::GetLoaderError(PCL.MyLoading)",
+      "reason": "Append actionable advice to recognized download-component errors; preserve the original error text.",
+      "beforeSha256": "C314D56E682906B4ECD86FD07A834C7C451CB7EB654D9B4D230F98FE9F7AA943",
+      "afterSha256": "2EF688DB1097773A3349E7F5279144149FE6FB404D7695201BD84CC81E34CD5C"
+    },
+    {
+      "method": "System.Void PCL.PageInstanceOverall::PageSetupLaunch_Loaded(System.Object,System.Windows.RoutedEventArgs)",
+      "reason": "Add the explicit local-tools UI entry; retain original page behavior.",
+      "beforeSha256": "CCB641F0701D32D03A5FC8EA0FBC8162153C795F7331064C77039FEF963C48C7",
+      "afterSha256": "E2F04D79AFB0913FD095510E402B94877B7E19752F7B66415ECC8FE37A343417"
+    },
+    {
+      "method": "System.Void PCL.PageOtherAbout::PageOtherAbout_Loaded(System.Object,System.Windows.RoutedEventArgs)",
+      "reason": "Add the explicit local-tools UI entry; retain original page behavior.",
+      "beforeSha256": "C18DE69BFDFCD3DEF0B1A0D72355F7133F5357A9815BC8719A558EBBB9B5758A",
+      "afterSha256": "FDD6312341AEDA2CA0D2BB54CE454FD1531BB4138AF5FBE1FD5FBC63FD7BC90F"
+    },
+    {
+      "method": "System.Void PCL.PageSetupSystem::Reload()",
+      "reason": "Lock only the launcher-update setting to disabled; retain all other setting refresh behavior.",
+      "beforeSha256": "F4EBCD2382AF8BA468F1AEEA062B2C0690CF58EA98B9826E4EF99564A798A999",
+      "afterSha256": "4E111E38FBCE6C3A3CEEC751F8A2931B56D532C34848C3D69476CED599D134D6"
+    },
+    {
+      "method": "System.Void PCL.PageSetupSystem::ComboSystemUpdate_SelectionChanged(System.Object,System.Windows.Controls.SelectionChangedEventArgs)",
+      "reason": "Remove the update-only selection warning for the disabled updater.",
+      "beforeSha256": "A9EF63C7C2A7450591D1BC33F1449CE3D7345A0F16483A658DDE5A9992AA06D0",
+      "afterSha256": "D2BFB77F04C75E049C06435EDD681A10B9D51C673D5A5ED0F564E143B0F57A6F"
+    }
+  ],
+  "resources": {
+    "Plain Craft Launcher 2.g.resources": "84297D474654D362D4D9ADFD4834FD2CD40CF1DD5CBF1FB3CACC73A6F794296F",
+    "PCL.Resources.resources": "27BC24A17FC6881AECA577F360EC61C7E6CB1FCC906319156185B26BF3CA0FA5"
+  }
+}

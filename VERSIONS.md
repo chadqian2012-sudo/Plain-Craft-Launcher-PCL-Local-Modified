@@ -1,6 +1,6 @@
 # Version Archive / 版本档案
 
-Inventory date: 2026-10-24. This table covers the PCL launcher executables and upstream source archives located in the available project and backup folders for this release. Each historical download is identified below; no personal game data is included.
+Inventory updated: 2026-10-25. This table covers the PCL launcher executables and upstream source archives located in the available project and backup folders for this release. Each historical download is identified below; no personal game data is included.
 
 | Version | Modification status | What is included / changed | Release |
 |---|---|---|---|
@@ -8,6 +8,8 @@ Inventory date: 2026-10-24. This table covers the PCL launcher executables and u
 | 2.99.0.0 | **Unmodified upstream version** | Original launcher EXE and source snapshot from upstream commit `6b9a50df911c9d68b69b24c979efba477fb14b67`. The modified build is in a separate release below. | [v2.99.0.0](https://github.com/chadqian2012-sudo/Plain-Craft-Launcher-PCL-Local-Modified/releases/tag/v2.99.0.0) |
 | 2.99.0.0 local | **Modified third-party build** | Removed launcher self-update execution and restored the vanilla game download entry for offline accounts. Other launcher behavior was kept from the 2.99.0.0 base. This historical build did not show the local repository URL in About. | [v2.99.0.0-local](https://github.com/chadqian2012-sudo/Plain-Craft-Launcher-PCL-Local-Modified/releases/tag/v2.99.0.0-local) |
 | 2.99.1 local | **Modified third-party build; current release** | Same updater/download changes, plus About-page release identification, credit for 龙腾猫跃 and chadqian2012-sudo, and links to both this repository and upstream PCL. It is based on PCL 2.99.0.0 and is **not** an official PCL 2.99.1 release. | [v2.99.1](https://github.com/chadqian2012-sudo/Plain-Craft-Launcher-PCL-Local-Modified/releases/tag/v2.99.1) |
+
+| 2.99.2 local prerelease | **Modified third-party build; prerelease** | Adds the local save/backup/migration/download/log toolbox and manual Releases link. Based on 2.99.0.0; 47 synthetic checks and 15 static host bindings verified, live launcher/game integration unverified. | [v2.99.2](https://github.com/chadqian2012-sudo/Plain-Craft-Launcher-PCL-Local-Modified/releases/tag/v2.99.2) |
 
 ## Declarations
 
@@ -19,4 +21,5 @@ Inventory date: 2026-10-24. This table covers the PCL launcher executables and u
 - Release ZIPs exclude `.git` history, game directories, account configuration, logs, and world saves.
 - This inventory is limited to files that could be verified in the available project and backup folders on the inventory date. It does not claim to recover or identify files that are no longer present.
 
-- GitHub 的 Contributors 基于默认分支上真实可达的提交作者；`main` 保留上游 PCL 至 2.99.0.0 的实际提交历史，因此原作者与上游贡献者按原提交署名显示。没有伪造共同作者记录。
+- main 保留上游 PCL 至 2.99.0.0 的真实提交历史，原作者的原始提交可查询。Contributors 统计以 GitHub 实际页面为准，没有伪造共同作者记录。
+
