@@ -7,3 +7,5 @@
 /validation/
 **/bin/
 **/obj/
+
+/.test/

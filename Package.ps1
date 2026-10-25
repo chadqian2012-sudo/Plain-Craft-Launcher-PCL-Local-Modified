@@ -8,6 +8,8 @@ New-Item -ItemType Directory -Path $source -Force | Out-Null
 foreach ($name in @('README.md','VERSIONS.md','使用说明.md','更新说明.md','发布说明.md','UPDATING.md','LICENCE','CONTRIBUTORS.md','Build.ps1','Package.ps1','Create-UpdateManifest.ps1')) {
     Copy-Item -LiteralPath (Join-Path $root $name) -Destination $source
 }
+$acceptanceReport = Join-Path $root 'verification\FORMAL-ACCEPTANCE-2.99.3.md'
+if (Test-Path -LiteralPath $acceptanceReport) { Copy-Item -LiteralPath $acceptanceReport -Destination (Join-Path $source 'FORMAL-ACCEPTANCE-2.99.3.md') }
 foreach ($name in @('patch-source','toolbox-source','upstream-source')) {
     $from = Join-Path $root $name
     Get-ChildItem -LiteralPath $from -Recurse -File -Force | ForEach-Object {

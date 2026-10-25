@@ -10,7 +10,7 @@
   "embeddedResources": 2,
   "allEmbeddedResourcesUnchanged": true,
   "companionFile": "PclLocalTools.dll",
-  "companionSha256": "EADA40D233C2305AA7694182DCA4D138CB39B23CDC4B2A5FF59F3132CB439AD8",
+  "companionSha256": "D4044CEBD4CBB0BDDDB95AC0270DB3E6901CCA299E8D4F49DBB8C5E265D91CFA",
   "addedAssemblyReferences": [
     "PclLocalTools, Version=2.99.3.0, Culture=neutral, PublicKeyToken=null"
   ],

@@ -1,6 +1,6 @@
 # PCL 本地修改版 2.99.3
 
-当前正式版：[2.99.2](https://github.com/chadqian2012-sudo/Plain-Craft-Launcher-PCL-Local-Modified/releases/tag/v2.99.2)。新增可选仓库更新的 [2.99.3 预发布版](https://github.com/chadqian2012-sudo/Plain-Craft-Launcher-PCL-Local-Modified/releases/tag/v2.99.3) 已完成 Windows MCP 实机操作验收，完整范围见 [验收记录](verification/GUI-ACCEPTANCE-2.99.3.md) 和 [发布说明](Release-notes-2.99.3.md)。
+当前正式版：2.99.3。正式版补充修复了 Windows MCP 实机验收中发现的两项问题：恢复助手先转移到事务目录副本，避免占用自身文件；更新窗在 PCL 的任务退出确认前隐藏，用户取消退出时取消安装并恢复提示。完整记录见 verification/FORMAL-ACCEPTANCE-2.99.3.md。
 
 本次增加从 chadqian2012-sudo/Plain-Craft-Launcher-PCL-Local-Modified 的 GitHub Releases 检查正式版本，并提供非强制更新。旧上游更新仍然禁用，原作者及上游链接保留。
 
@@ -23,6 +23,8 @@ Package.ps1 分别生成使用包、源码包、SHA-256 清单和 PCL-update.jso
 2.99.2 没有本次新增的检查器，需要手动安装 2.99.3 一次；后续版本才能从此仓库检查更新。完整解压并保留六个程序组件，不要只复制 EXE。详细规范见 UPDATING.md。
 
 ## 验证
+
+正式发布前完成 Windows MCP 实机操作与 85 项自动化回归。构建测试夹具默认放在较短的 .test 目录，可用 Build.ps1 的 FixtureDirectory 参数指定其他短路径，避免 Windows 传统路径长度上限。
 
 自动化验证使用模拟世界、日志、HTTP 响应和模拟程序目录；独立助手子进程也只处理人工数据，不运行真实 Minecraft。实际执行结果见 verification/fixtures/latest-results.txt。源文件通过固定输入 EXE 限定方法补丁生成，同时重新编译工具箱与独立助手。
 

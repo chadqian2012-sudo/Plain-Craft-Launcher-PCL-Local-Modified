@@ -144,6 +144,20 @@ internal static class UpdateTests {
         Add(Helper(isolatedHelper, "--apply") == 0 && isolatedHelper.Request.Manifest.Files.All(file => HashFile(Path.Combine(isolatedHelper.Root, file.Name)) == file.Sha256), "standalone helper process installs fixture components without a companion DLL");
         var realRecovery = Make(directory); realRecovery.Prepare(); Journal(realRecovery);
         Add(Helper(realRecovery, "--rollback") == 0 && realRecovery.Original(), "standalone helper process recovers an interrupted fixture update");
+        var selfRecovery = Make(directory); selfRecovery.Prepare();
+        var builtHelper = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\..\UpdaterHost\bin\Release\net48\PCL Update Helper.exe"));
+        foreach (var name in new[] { UpdateProtocol.HelperName, UpdateProtocol.HelperName + ".config" }) {
+            var bytes = File.ReadAllBytes(name.EndsWith(".config") ? builtHelper + ".config" : builtHelper);
+            selfRecovery.Old[name] = bytes; selfRecovery.New[name] = bytes; File.WriteAllBytes(Path.Combine(selfRecovery.Root, name), bytes);
+            var item = selfRecovery.Request.Manifest.Files.Single(f => f.Name == name); item.Bytes = bytes.Length; item.Sha256 = Hash(bytes);
+        }
+        UpdateProtocol.Save(selfRecovery.RequestPath, selfRecovery.Request); Journal(selfRecovery);
+        using (var process = Process.Start(new ProcessStartInfo(Path.Combine(selfRecovery.Root, UpdateProtocol.HelperName), "--rollback \"" + selfRecovery.RequestPath + "\" --quiet") { UseShellExecute = false, CreateNoWindow = true, WindowStyle = ProcessWindowStyle.Hidden })) {
+            if (process == null || !process.WaitForExit(15000) || process.ExitCode != 0) throw new Exception("Root recovery handoff failed.");
+        }
+        var recoveryLimit = DateTime.UtcNow.AddSeconds(15);
+        while (DateTime.UtcNow < recoveryLimit && UpdateProtocol.Load<UpdateJournal>(Path.Combine(selfRecovery.Request.TransactionDirectory, "journal.json")).State != "RolledBack") Thread.Sleep(100);
+        Add(selfRecovery.Original() && UpdateProtocol.Load<UpdateJournal>(Path.Combine(selfRecovery.Request.TransactionDirectory, "journal.json")).State == "RolledBack", "helper launched from installation directory relocates before restoring its own executable");
         var realCancel = Make(directory); realCancel.Prepare(); realCancel.Request.ParentPid = Process.GetCurrentProcess().Id; realCancel.Request.ParentStartUtcTicks = Process.GetCurrentProcess().StartTime.ToUniversalTime().Ticks; UpdateProtocol.Save(realCancel.RequestPath, realCancel.Request); File.WriteAllText(Path.Combine(realCancel.Request.TransactionDirectory, "cancel.flag"), "cancel");
         Add(Helper(realCancel, "--apply") != 0 && realCancel.Original() && !Process.GetCurrentProcess().HasExited, "standalone helper honors cancellation without killing its live fixture parent");
         var noticeRoot = Make(directory); var before = Directory.GetFiles(noticeRoot.Root, "*", SearchOption.AllDirectories).Length;

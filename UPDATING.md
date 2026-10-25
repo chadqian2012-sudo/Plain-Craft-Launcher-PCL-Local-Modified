@@ -28,6 +28,8 @@ PCL Update Helper.exe.config
 
 替换中途失败会回退旧组件。若停电等导致事务中断，退出所有 PCL 和工具箱后，双击 PCL Update Helper.exe；它会检查未完成事务并询问是否恢复。不要删除事务目录的 backup 和 journal.json 后再尝试恢复。助手不会申请管理员权限。
 
+确认恢复后，位于安装目录的助手先复制并校验事务目录中的独立恢复副本，退出自身，再由副本等待原助手退出后恢复文件，避免占用待恢复的助手 EXE。拒绝恢复保持文件原样；备份损坏会在任何目标文件修改前被拒绝。命令行从安装目录使用 --rollback 时也会转交，原进程退出只表示已转交，最终结果以事务日志为准。
+
 ## English
 
 Upload the matching usage ZIP and PCL-update.json to each stable release in this repository and select Latest. Numeric vX.Y.Z tags only; draft/prerelease builds are excluded. The installer accepts exactly six allowlisted application components, validates archive and component hashes, waits for the original process, backs up old files and rolls back on failure. Configs, worlds, credentials and Java installations are outside the write set. Dismissal is not consent to download or install; restarting is opt-in.

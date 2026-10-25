@@ -11,14 +11,16 @@ namespace PclLocalTools {
     public sealed class UpdateNotice : Window {
         private readonly UpdateRelease release;
         private readonly string root, exe;
+        private readonly Func<GitHubUpdateClient> createClient;
         private readonly CancellationTokenSource cancellation = new CancellationTokenSource();
         private readonly Button update;
         private readonly TextBlock status;
         private readonly CheckBox restart;
         private UpdateRequest? ready;
         private bool busy, helperStarted;
-        public UpdateNotice(UpdateRelease release, string root, string exe) {
-            this.release = release; this.root = root; this.exe = exe;
+        public UpdateNotice(UpdateRelease release, string root, string exe) : this(release, root, exe, () => new GitHubUpdateClient()) { }
+        internal UpdateNotice(UpdateRelease release, string root, string exe, Func<GitHubUpdateClient> createClient) {
+            this.release = release; this.root = root; this.exe = exe; this.createClient = createClient;
             Title = "PCL 有新版本"; Width = 590; Height = 470; MinWidth = 480; MinHeight = 360;
             WindowStartupLocation = WindowStartupLocation.CenterOwner; FontFamily = new FontFamily("Microsoft YaHei UI"); FontSize = 13; Topmost = false;
             var panel = new DockPanel { Margin = new Thickness(22) }; Content = panel;
@@ -46,7 +48,7 @@ namespace PclLocalTools {
             if (busy) return; busy = true; update.IsEnabled = false;
             try {
                 if (!File.Exists(Path.Combine(root, UpdateProtocol.HelperName))) throw new IOException("缺少更新助手，请从发布页完整下载程序包。");
-                using (var client = new GitHubUpdateClient()) {
+                using (var client = createClient()) {
                     status.Text = "检查更新清单…"; var manifest = await client.Manifest(release, cancellation.Token);
                     var request = new UpdateRequest { TransactionId = Guid.NewGuid().ToString("N"), TargetDirectory = Path.GetFullPath(root), TargetExeName = exe, ParentPid = Process.GetCurrentProcess().Id, ParentStartUtcTicks = Process.GetCurrentProcess().StartTime.ToUniversalTime().Ticks, Manifest = manifest };
                     var archive = await client.Download(release, manifest, request.TransactionDirectory, cancellation.Token, new Progress<string>(p => status.Text = p));
@@ -71,10 +73,18 @@ namespace PclLocalTools {
             var process = Process.Start(new ProcessStartInfo(Path.Combine(runner, UpdateProtocol.HelperName), "--apply \"" + path + "\"") { WorkingDirectory = root, UseShellExecute = false, CreateNoWindow = true, WindowStyle = ProcessWindowStyle.Hidden });
             if (process == null) throw new IOException("更新助手启动失败。");
             helperStarted = true; update.IsEnabled = false; status.Text = "正在等待启动器正常退出；120 秒内没有退出则取消安装。";
-            main.Close();
+            // PCL renders its task-exit confirmation inside the main window. An
+            // owned updater window would cover it, so yield the screen first.
+            Hide();
+            try { main.Close(); }
+            catch {
+                File.WriteAllText(Path.Combine(ready.TransactionDirectory, "cancel.flag"), "Launcher close failed.");
+                Show(); throw;
+            }
             if (CloseWasCancelled(main.IsVisible, main.IsHitTestVisible)) {
                 File.WriteAllText(Path.Combine(ready.TransactionDirectory, "cancel.flag"), "Launcher close was cancelled.");
                 status.Text = "启动器未退出，本次安装已取消。结束游戏或下载后，可以重新检查更新。";
+                Show();
             }
         }
         // PCL cancels the synchronous Closing event even on an accepted exit, then

@@ -1,6 +1,7 @@
 param(
     [Parameter(Mandatory=$true)][string]$OriginalExe,
-    [string]$DotNet = 'dotnet'
+    [string]$DotNet = 'dotnet',
+    [string]$FixtureDirectory = ''
 )
 $ErrorActionPreference = 'Stop'
 $root = $PSScriptRoot
@@ -25,8 +26,16 @@ Build-Project (Join-Path $root 'toolbox-source\Host\Toolbox.Host.csproj')
 Build-Project (Join-Path $root 'toolbox-source\UpdaterHost\UpdaterHost.csproj')
 Build-Project (Join-Path $root 'patch-source\LauncherPatch.csproj')
 Build-Project (Join-Path $root 'toolbox-source\Tests\Toolbox.Tests.csproj')
-& (Join-Path $root 'toolbox-source\Tests\bin\Release\net48\Toolbox.Tests.exe') (Join-Path $root 'verification\fixtures')
+if ([string]::IsNullOrWhiteSpace($FixtureDirectory)) { $FixtureDirectory = Join-Path $root '.test' }
+& (Join-Path $root 'toolbox-source\Tests\bin\Release\net48\Toolbox.Tests.exe') $FixtureDirectory
 if ($LASTEXITCODE -ne 0) { throw 'Synthetic-data verification failed.' }
+$evidence = Join-Path $root 'verification\fixtures'
+New-Item -ItemType Directory -Path $evidence -Force | Out-Null
+if ([IO.Path]::GetFullPath($FixtureDirectory) -ne [IO.Path]::GetFullPath($evidence)) {
+    Copy-Item -LiteralPath (Join-Path $FixtureDirectory 'latest-results.txt') -Destination $evidence -Force
+    Get-ChildItem -LiteralPath $FixtureDirectory -Filter 'toolbox-tab-*.png' | Copy-Item -Destination $evidence -Force
+    Get-ChildItem -LiteralPath $FixtureDirectory -Recurse -Filter 'update-notice.png' | Sort-Object LastWriteTime -Descending | Select-Object -First 1 | Copy-Item -Destination $evidence -Force
+}
 Copy-Item -LiteralPath (Join-Path $root 'toolbox-source\bin\Release\net48\PclLocalTools.dll') -Destination $out -Force
 Copy-Item -LiteralPath (Join-Path $root 'toolbox-source\Host\bin\Release\net48\PCL Local Tools.exe') -Destination $out -Force
 $hostConfig = Join-Path $root 'toolbox-source\Host\bin\Release\net48\PCL Local Tools.exe.config'
