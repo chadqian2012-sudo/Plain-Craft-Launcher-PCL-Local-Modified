@@ -1,0 +1,49 @@
+PASS: bounded NBT reader handles Chinese name, version and LastPlayed
+PASS: shared and isolated saves discovered
+PASS: world scan avoids automatic deep sizing; explicit sizing works
+PASS: active world backup rejected
+PASS: failed backup not committed
+PASS: backup hashes every file and excludes the session lock
+PASS: restore-as-new preserves verified world content
+PASS: original world content unchanged
+PASS: restore cannot overwrite existing world
+PASS: backup cannot contain itself
+PASS: ZIP traversal rejected before extraction
+PASS: ZIP traversal writes no destination or escaped file
+PASS: corrupt file hash rejected
+PASS: cancelled backup rejected
+PASS: cancelled backup never becomes final ZIP
+PASS: migration rejected while isolated world is active
+PASS: active-world migration creates no completed directory
+PASS: migration copies game and world data
+PASS: migration excludes account files and logs
+PASS: migration preserves source and writes hash manifest
+PASS: nested migration target rejected
+PASS: existing migration target rejected
+PASS: diagnostic export redacts fixture tokens, email and local paths
+PASS: diagnostic advice classifies Java and checksum failures
+PASS: unrecognized loader messages unchanged
+PASS: quoted secret values are fully redacted
+PASS: log tail is bounded to two MiB
+PASS: mock HTTP metadata chain and all eight diagnostic stages succeed
+PASS: client probe requests one byte and reports verification limits
+PASS: version JSON, asset index, sampled asset and library SHA-1 verified
+PASS: metadata hash mismatch reported while independent endpoints still checked
+PASS: oversized metadata rejected before dependent requests
+PASS: cancelled diagnostic makes no HTTP requests
+PASS: reject unsafe entry ../escape
+PASS: reject unsafe entry /absolute
+PASS: reject unsafe entry C:/escape
+PASS: reject unsafe entry a/../b
+PASS: reject unsafe entry CON.txt
+PASS: reject unsafe entry file:stream
+PASS: reject unsafe entry name.
+PASS: reject unsafe entry a//b
+PASS: about-page integration idempotent
+PASS: instance-page integration replaces stale paths without duplicate cards
+PASS: download banner integration is idempotent
+PASS: explicit folder registration preserves existing entries and avoids duplicates
+PASS: toolbox constructs without displaying or running operations
+PASS: all five toolbox tabs render offscreen in software without showing a window
+No real launcher, game directory, account configuration or user world was opened. HTTP diagnostics used only in-memory mocks; no external download probe ran.
+Total passed: 47

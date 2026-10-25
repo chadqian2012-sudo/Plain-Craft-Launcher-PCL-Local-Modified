@@ -1,20 +1,42 @@
 {
   "inputSha256": "6B6E1260CB5A1D6A303855F1C60CAB3D0BC1AEBBA7E40A964180188B271E7386",
-  "outputSha256": "72FAC62C8FA86801B29E9C83EAFB654A2F96594EE836784CCF33D230F01403B6",
+  "outputSha256": "D617A3CE70AC4708D3A93D60BB386C49D29A8C82BD61ADF05A4A56DE0DB94EB7",
   "baseVersion": "2.99.0.0",
-  "releaseVersion": "2.99.1",
-  "product": "Plain Craft Launcher (PCL) \u672C\u5730\u4FEE\u6539\u7248 2.99.1",
+  "releaseVersion": "2.99.2",
+  "product": "Plain Craft Launcher (PCL) \u672C\u5730\u4FEE\u6539\u7248 2.99.2 \u5F00\u53D1\u9884\u89C8",
   "totalMethods": 6339,
-  "changedMethods": 18,
-  "unchangedMethods": 6321,
+  "changedMethods": 21,
+  "unchangedMethods": 6318,
   "embeddedResources": 2,
   "allEmbeddedResourcesUnchanged": true,
+  "companionFile": "PclLocalTools.dll",
+  "companionSha256": "5239C03D273468D75FAB7870E22AA5F7D0AA904F276E828FB72DA7074683A129",
+  "addedAssemblyReferences": [
+    "PclLocalTools, Version=2.99.2.0, Culture=neutral, PublicKeyToken=null"
+  ],
+  "verifiedToolboxHostBindings": [
+    "PCL.PageOtherAbout.PanMain",
+    "PCL.PageOtherAbout.BtnAboutUpdate",
+    "PCL.MyButton.Text",
+    "PCL.PageInstanceOverall.PanMain",
+    "PCL.PageDownloadInstall.PanInner",
+    "PCL.ModMinecraft.McFolderSelected",
+    "PCL.ModMinecraft.McFolderList",
+    "PCL.PageInstanceLeft.Instance",
+    "PCL.ModMinecraft/McInstance.PathVersion",
+    "PCL.ModMinecraft/McInstance.PathIndie",
+    "PCL.ModMinecraft/McFolder.Name",
+    "PCL.ModMinecraft/McFolder.Location",
+    "PCL.ModMinecraft/McFolder.Type",
+    "PCL.Settings.GetSafe",
+    "PCL.Settings.SetSafe"
+  ],
   "modifications": [
     {
       "method": "System.Void PCL.ModSecret::UpdateCheckByButton()",
       "reason": "Remove launcher self-update implementation.",
       "beforeSha256": "190A0FB3581E1F3BE9C10BB014E9FB859C0B6C11C762E4D9CB0F54D54D120F3B",
-      "afterSha256": "C01608BC2E248C3E51446B485C3F3AFCEAF9F83CA355FFDED08DCEFDEA30768F"
+      "afterSha256": "F0FF6B8CDDD25266B895D2C515560BE32677432F0A57940060219F762A4F02A8"
     },
     {
       "method": "System.Void PCL.ModSecret::UpdateStart(System.Boolean,System.Collections.Generic.IEnumerable\u00601\u003CSystem.String\u003E)",
@@ -101,10 +123,28 @@
       "afterSha256": "19B05504812236CD4D167AC208B2AC028F578B319B8E6B9ACF436BFCAB31A3C4"
     },
     {
+      "method": "System.Void PCL.PageDownloadInstall::Init()",
+      "reason": "Add the explicit local-tools UI entry; retain original page behavior.",
+      "beforeSha256": "FD5153BDDF91ECC9C7C2752D0E4F4B51A7233A3A989E8F873A931954CB3CB984",
+      "afterSha256": "DEF3141C59C91C4644319DD915DD3084C7803A13241B00142AF16F3738973C8F"
+    },
+    {
+      "method": "System.String PCL.PageDownloadInstall::GetLoaderError(PCL.MyLoading)",
+      "reason": "Append actionable advice to recognized download-component errors; preserve the original error text.",
+      "beforeSha256": "C314D56E682906B4ECD86FD07A834C7C451CB7EB654D9B4D230F98FE9F7AA943",
+      "afterSha256": "2EF688DB1097773A3349E7F5279144149FE6FB404D7695201BD84CC81E34CD5C"
+    },
+    {
+      "method": "System.Void PCL.PageInstanceOverall::PageSetupLaunch_Loaded(System.Object,System.Windows.RoutedEventArgs)",
+      "reason": "Add the explicit local-tools UI entry; retain original page behavior.",
+      "beforeSha256": "CCB641F0701D32D03A5FC8EA0FBC8162153C795F7331064C77039FEF963C48C7",
+      "afterSha256": "E2F04D79AFB0913FD095510E402B94877B7E19752F7B66415ECC8FE37A343417"
+    },
+    {
       "method": "System.Void PCL.PageOtherAbout::PageOtherAbout_Loaded(System.Object,System.Windows.RoutedEventArgs)",
-      "reason": "Identify release 2.99.1 and display both the third-party repository and original upstream repository URLs on the existing about-page product row.",
+      "reason": "Add the explicit local-tools UI entry; retain original page behavior.",
       "beforeSha256": "C18DE69BFDFCD3DEF0B1A0D72355F7133F5357A9815BC8719A558EBBB9B5758A",
-      "afterSha256": "ECBA93D7C5F1637CDA58DF4ED550B5E13BBE52A900813C4B5BBE91A808289D27"
+      "afterSha256": "FDD6312341AEDA2CA0D2BB54CE454FD1531BB4138AF5FBE1FD5FBC63FD7BC90F"
     },
     {
       "method": "System.Void PCL.PageSetupSystem::Reload()",

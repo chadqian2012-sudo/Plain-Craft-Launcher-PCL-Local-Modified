@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>PCL Local Tools</AssemblyName>
+    <Version>2.99.2</Version>
+  </PropertyGroup>
+  <ItemGroup><ProjectReference Include="..\PclLocalTools.csproj" /></ItemGroup>
+</Project>

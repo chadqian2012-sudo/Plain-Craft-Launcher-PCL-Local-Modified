@@ -1,0 +1,9 @@
+/.minecraft/
+/PCL/
+/*.zip
+/.buildcache/
+/baseline/
+/dist/
+/validation/
+**/bin/
+**/obj/
