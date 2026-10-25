@@ -1,0 +1,3 @@
+Source: https://api.github.com/repos/chadqian2012-sudo/Plain-Craft-Launcher-PCL-Local-Modified/releases/latest
+Current: 2.99.3; newer stable release: none
+Read-only live check succeeded; no download, installation or UI was triggered.

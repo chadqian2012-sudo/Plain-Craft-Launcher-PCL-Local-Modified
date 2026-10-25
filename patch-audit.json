@@ -1,18 +1,18 @@
 {
   "inputSha256": "6B6E1260CB5A1D6A303855F1C60CAB3D0BC1AEBBA7E40A964180188B271E7386",
-  "outputSha256": "D617A3CE70AC4708D3A93D60BB386C49D29A8C82BD61ADF05A4A56DE0DB94EB7",
+  "outputSha256": "B99182EDA27F36FA312A7BA23728EC5412BBC3BE67AA19B73FFF03A9EF68BDB1",
   "baseVersion": "2.99.0.0",
-  "releaseVersion": "2.99.2",
-  "product": "Plain Craft Launcher (PCL) \u672C\u5730\u4FEE\u6539\u7248 2.99.2 \u5F00\u53D1\u9884\u89C8",
+  "releaseVersion": "2.99.3",
+  "product": "Plain Craft Launcher (PCL) \u672C\u5730\u4FEE\u6539\u7248 2.99.3",
   "totalMethods": 6339,
-  "changedMethods": 21,
-  "unchangedMethods": 6318,
+  "changedMethods": 22,
+  "unchangedMethods": 6317,
   "embeddedResources": 2,
   "allEmbeddedResourcesUnchanged": true,
   "companionFile": "PclLocalTools.dll",
-  "companionSha256": "5239C03D273468D75FAB7870E22AA5F7D0AA904F276E828FB72DA7074683A129",
+  "companionSha256": "EADA40D233C2305AA7694182DCA4D138CB39B23CDC4B2A5FF59F3132CB439AD8",
   "addedAssemblyReferences": [
-    "PclLocalTools, Version=2.99.2.0, Culture=neutral, PublicKeyToken=null"
+    "PclLocalTools, Version=2.99.3.0, Culture=neutral, PublicKeyToken=null"
   ],
   "verifiedToolboxHostBindings": [
     "PCL.PageOtherAbout.PanMain",
@@ -36,7 +36,7 @@
       "method": "System.Void PCL.ModSecret::UpdateCheckByButton()",
       "reason": "Remove launcher self-update implementation.",
       "beforeSha256": "190A0FB3581E1F3BE9C10BB014E9FB859C0B6C11C762E4D9CB0F54D54D120F3B",
-      "afterSha256": "F0FF6B8CDDD25266B895D2C515560BE32677432F0A57940060219F762A4F02A8"
+      "afterSha256": "66CF27D404F37A3BD1343F77464829F5DAC20F1F88D1F79D2569D9BE59F5090D"
     },
     {
       "method": "System.Void PCL.ModSecret::UpdateStart(System.Boolean,System.Collections.Generic.IEnumerable\u00601\u003CSystem.String\u003E)",
@@ -144,19 +144,25 @@
       "method": "System.Void PCL.PageOtherAbout::PageOtherAbout_Loaded(System.Object,System.Windows.RoutedEventArgs)",
       "reason": "Add the explicit local-tools UI entry; retain original page behavior.",
       "beforeSha256": "C18DE69BFDFCD3DEF0B1A0D72355F7133F5357A9815BC8719A558EBBB9B5758A",
-      "afterSha256": "FDD6312341AEDA2CA0D2BB54CE454FD1531BB4138AF5FBE1FD5FBC63FD7BC90F"
+      "afterSha256": "5C6FFBD194300D1818486DE4CD89B853F42008ABEBC7749E131FBA3751177BB2"
     },
     {
       "method": "System.Void PCL.PageSetupSystem::Reload()",
-      "reason": "Lock only the launcher-update setting to disabled; retain all other setting refresh behavior.",
+      "reason": "Add the explicit local-tools UI entry; retain original page behavior.",
       "beforeSha256": "F4EBCD2382AF8BA468F1AEEA062B2C0690CF58EA98B9826E4EF99564A798A999",
-      "afterSha256": "4E111E38FBCE6C3A3CEEC751F8A2931B56D532C34848C3D69476CED599D134D6"
+      "afterSha256": "157288190ADDF9A8D05189635C483929DF526A7A61D560E3423E7EAD7CA9C167"
     },
     {
       "method": "System.Void PCL.PageSetupSystem::ComboSystemUpdate_SelectionChanged(System.Object,System.Windows.Controls.SelectionChangedEventArgs)",
       "reason": "Remove the update-only selection warning for the disabled updater.",
       "beforeSha256": "A9EF63C7C2A7450591D1BC33F1449CE3D7345A0F16483A658DDE5A9992AA06D0",
       "afterSha256": "D2BFB77F04C75E049C06435EDD681A10B9D51C673D5A5ED0F564E143B0F57A6F"
+    },
+    {
+      "method": "System.Void PCL.FormMain::FormMain_Loaded(System.Object,System.Windows.RoutedEventArgs)",
+      "reason": "Add the explicit local-tools UI entry; retain original page behavior.",
+      "beforeSha256": "7554C11A5C241B0F75398B20B6BC42DF2C868E5A92E3B5DE653AA949090D3F4F",
+      "afterSha256": "C0C7E8D906FE8A23F2CF6939732188AFEEC1DA6E8192E3BA3A51F1F673960638"
     }
   ],
   "resources": {

@@ -57,7 +57,7 @@ namespace PclLocalTools {
         public static string Report(string log, IEnumerable<string>? roots = null) {
             var advice = Advice(log);
             var excerpt = log.Length > 80000 ? log.Substring(log.Length - 80000) : log;
-            return "PCL 本地工具箱 2.99.2 诊断报告\r\n时间：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") +
+            return "PCL 本地工具箱 2.99.3 诊断报告\r\n时间：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") +
                 "\r\n以下结论来自日志关键字匹配，需要结合原始错误确认。\r\n\r\n" +
                 (advice.Length == 0 ? "未匹配到已知故障类型，请查看下面的日志摘录。" : advice) +
                 "\r\n\r\n脱敏日志摘录（最多 80000 字符；分享前请再检查）：\r\n" + Redact(excerpt, roots);
@@ -104,7 +104,7 @@ namespace PclLocalTools {
             var results = new List<NetworkResult>();
             using (var handler = handlerOverride ?? new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate })
             using (var client = new HttpClient(handler) { Timeout = TimeSpan.FromSeconds(18) }) {
-                client.DefaultRequestHeaders.UserAgent.ParseAdd("PCL-LocalTools/2.99.2");
+                client.DefaultRequestHeaders.UserAgent.ParseAdd("PCL-LocalTools/2.99.3");
                 async Task<byte[]?> Check(string name, string url, int limit, string? expected = null, bool probe = false) {
                     cancellation.ThrowIfCancellationRequested(); var timer = Stopwatch.StartNew(); var row = new NetworkResult { Name = name, Url = url };
                     byte[]? data = null;

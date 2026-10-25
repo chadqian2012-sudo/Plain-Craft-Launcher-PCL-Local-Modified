@@ -1,0 +1,38 @@
+{
+  "Format": 1,
+  "Version": "2.99.3",
+  "ArchiveName": "PCL-2.99.3-launcher-20261025-130354.zip",
+  "ArchiveSha256": "678ACBF9A4B619A2514721DD1C52D4C3A59440267C4DF3B214B2EA043194DB48",
+  "Files": [
+    {
+      "Name": "Plain Craft Launcher (PCL) 本地修改版.exe",
+      "Bytes": 5969408,
+      "Sha256": "B99182EDA27F36FA312A7BA23728EC5412BBC3BE67AA19B73FFF03A9EF68BDB1"
+    },
+    {
+      "Name": "PclLocalTools.dll",
+      "Bytes": 126464,
+      "Sha256": "EADA40D233C2305AA7694182DCA4D138CB39B23CDC4B2A5FF59F3132CB439AD8"
+    },
+    {
+      "Name": "PCL Local Tools.exe",
+      "Bytes": 5120,
+      "Sha256": "20C47FEBEA2457B67A293A328C561C0CDCEEA03F5F32B5C8068D6752F074B475"
+    },
+    {
+      "Name": "PCL Local Tools.exe.config",
+      "Bytes": 174,
+      "Sha256": "051099983B896673909E01A1F631B6652ABB88DA95C9F06F3EFEF4BE033091FA"
+    },
+    {
+      "Name": "PCL Update Helper.exe",
+      "Bytes": 28672,
+      "Sha256": "1F6A787A2F72F0408930CE20F3879252BF6E5FA526E137EEA0BCC6AC54CCCD76"
+    },
+    {
+      "Name": "PCL Update Helper.exe.config",
+      "Bytes": 174,
+      "Sha256": "051099983B896673909E01A1F631B6652ABB88DA95C9F06F3EFEF4BE033091FA"
+    }
+  ]
+}

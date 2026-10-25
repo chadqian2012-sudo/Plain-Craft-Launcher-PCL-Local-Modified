@@ -74,9 +74,10 @@ namespace PclLocalTools {
             try {
                 var panel = Panel(page); if (panel == null || panel.Children.OfType<Border>().Any(b => Equals(b.Tag, "PCL.LocalTools"))) return;
                 var assembly = page.GetType().Assembly;
-                panel.Children.Insert(0, Card("本地工具箱 2.99.2 · 存档备份、目录复制、下载诊断和日志分析。由你手动启动各项操作。",
-                    Tuple.Create("打开本地工具箱", (Action)(() => Show(assembly))), Tuple.Create("本修改版发布页", (Action)OpenRelease)));
-                var update = Member(page, "BtnAboutUpdate"); update?.GetType().GetProperty("Text")?.SetValue(update, "手动获取新版");
+                UpdateCoordinator.RegisterHost(assembly);
+                panel.Children.Insert(0, Card("本地工具箱 2.99.3 · 存档备份、目录复制、下载诊断和日志分析。由你手动启动各项操作。",
+                    Tuple.Create("打开本地工具箱", (Action)(() => Show(assembly))), Tuple.Create("检查本仓库更新", (Action)UpdateCoordinator.CheckNow), Tuple.Create("本修改版发布页", (Action)OpenRelease)));
+                var update = Member(page, "BtnAboutUpdate"); update?.GetType().GetProperty("Text")?.SetValue(update, "检查本仓库更新");
             } catch (Exception ex) { Error(page, ex); }
         }
         public static void AttachInstance(object page) {

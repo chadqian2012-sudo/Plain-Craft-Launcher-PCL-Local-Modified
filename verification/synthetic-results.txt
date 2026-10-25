@@ -31,6 +31,43 @@ PASS: version JSON, asset index, sampled asset and library SHA-1 verified
 PASS: metadata hash mismatch reported while independent endpoints still checked
 PASS: oversized metadata rejected before dependent requests
 PASS: cancelled diagnostic makes no HTTP requests
+PASS: update version comparisons are numeric and normalized
+PASS: prerelease tag cannot become a stable update
+PASS: only a newer release is selected
+PASS: same or older release never triggers downgrade
+PASS: drafts and prereleases are ignored
+PASS: newer legacy release falls back to opening its release page
+PASS: updater rejects foreign repository and plaintext sources
+PASS: automatic check is enabled by default
+PASS: startup request cache limits repeated checks to thirty minutes
+PASS: disabled automatic checking remains disabled
+PASS: update preferences persist separately from original launcher config
+PASS: mock GitHub check, manifest and archive download verify hashes without credentials
+PASS: redirect outside GitHub asset hosts is rejected
+PASS: rate-limited request fails without replacement
+PASS: cancelled check makes no HTTP request
+PASS: wrong ZIP hash leaves original program intact
+PASS: ZIP traversal rejected before program replacement
+PASS: case-insensitive ZIP collisions rejected
+PASS: manifest cannot overwrite game or launcher configuration
+PASS: post-download tampering rejected before any replacement
+PASS: occupied launcher is never forcibly replaced
+PASS: occupied launcher failure preserves every original component
+PASS: cancelled installation does not terminate or replace the live parent
+PASS: update installs all six components and preserves a renamed launcher path
+PASS: successful update never touches fixture config or world data
+PASS: successful update retains verified old program backups
+PASS: failure after first replacement rolls back every original file
+PASS: rollback removes only verified newly-created program components
+PASS: journal recovery restores a simulated interrupted update
+PASS: damaged recovery backup rejected before any target changes
+PASS: helper rejects requests outside the owning transaction directory
+PASS: PCL asynchronous exit animation is distinguished from a cancelled close
+PASS: standalone helper process installs fixture components without a companion DLL
+PASS: standalone helper process recovers an interrupted fixture update
+PASS: standalone helper honors cancellation without killing its live fixture parent
+PASS: update prompt is non-topmost and does not launch or install on construction
+PASS: closing update prompt performs no download or installation
 PASS: reject unsafe entry ../escape
 PASS: reject unsafe entry /absolute
 PASS: reject unsafe entry C:/escape
@@ -46,4 +83,4 @@ PASS: explicit folder registration preserves existing entries and avoids duplica
 PASS: toolbox constructs without displaying or running operations
 PASS: all five toolbox tabs render offscreen in software without showing a window
 No real launcher, game directory, account configuration or user world was opened. HTTP diagnostics used only in-memory mocks; no external download probe ran.
-Total passed: 47
+Total passed: 84

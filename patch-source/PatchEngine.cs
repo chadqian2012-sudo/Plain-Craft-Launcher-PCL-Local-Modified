@@ -6,8 +6,8 @@ using Mono.Cecil.Cil;
 
 internal static class PatchEngine {
     private const string ExpectedInputSha256 = "6B6E1260CB5A1D6A303855F1C60CAB3D0BC1AEBBA7E40A964180188B271E7386";
-    private const string ReleaseVersion = "2.99.2";
-    private const string ProductName = "Plain Craft Launcher (PCL) 本地修改版 2.99.2 开发预览";
+    private const string ReleaseVersion = "2.99.3";
+    private const string ProductName = "Plain Craft Launcher (PCL) 本地修改版 2.99.3";
     private const string RepositoryUrl = "https://github.com/chadqian2012-sudo/Plain-Craft-Launcher-PCL-Local-Modified";
     private const string UpstreamRepositoryUrl = "https://github.com/Meloong-Git/PCL";
 
@@ -58,6 +58,7 @@ internal static class PatchEngine {
         var toolsPath = Path.Combine(Path.GetDirectoryName(Path.GetFullPath(output))!, "PclLocalTools.dll");
         if (!File.Exists(toolsPath)) throw new InvalidOperationException("Build and copy PclLocalTools.dll beside the output first.");
         using var tools = AssemblyDefinition.ReadAssembly(toolsPath);
+        if (tools.Name.Version.ToString(3) != ReleaseVersion) throw new InvalidOperationException("Toolbox version does not match launcher release version.");
 
         using var resolver = new EmbeddedAssemblyResolver(input);
         using var assembly = AssemblyDefinition.ReadAssembly(input, new ReaderParameters { AssemblyResolver = resolver });
@@ -103,10 +104,10 @@ internal static class PatchEngine {
             .First(m => m.DeclaringType.FullName == type && m.Name == name);
         void Mark(MethodDefinition method, string reason) => changed[method.FullName] = reason;
         MethodReference Tool(string type, string method) => module.ImportReference(tools.MainModule.Types.Single(t => t.FullName == type).Methods.Single(m => m.Name == method));
-        void Attach(string type, string methodName, string helper) {
+        void Attach(string type, string methodName, string helper, string helperType = "PclLocalTools.Integration") {
             var method = Method(type, methodName); var il = method.Body.GetILProcessor(); var firstInstruction = method.Body.Instructions[0];
             il.InsertBefore(firstInstruction, Instruction.Create(OpCodes.Ldarg_0));
-            il.InsertBefore(firstInstruction, Instruction.Create(OpCodes.Call, Tool("PclLocalTools.Integration", helper)));
+            il.InsertBefore(firstInstruction, Instruction.Create(OpCodes.Call, Tool(helperType, helper)));
             Mark(method, "Add the explicit local-tools UI entry; retain original page behavior.");
         }
         void ReplaceVoid(MethodDefinition method, string reason) {
@@ -159,7 +160,7 @@ internal static class PatchEngine {
         foreach (var root in updaterRoots) ReplaceVoid(root, "Remove launcher self-update implementation.");
         var manualUpdate = updaterRoots.Single(m => m.Name == "UpdateCheckByButton");
         manualUpdate.Body.Instructions.Clear();
-        manualUpdate.Body.Instructions.Add(Instruction.Create(OpCodes.Call, Tool("PclLocalTools.Integration", "OpenRelease")));
+        manualUpdate.Body.Instructions.Add(Instruction.Create(OpCodes.Call, Tool("PclLocalTools.UpdateCoordinator", "CheckNow")));
         manualUpdate.Body.Instructions.Add(Instruction.Create(OpCodes.Ret));
 
         // Preserve server configuration and ordinary announcements. Skip update announcements only.
@@ -205,7 +206,7 @@ internal static class PatchEngine {
         var about = Method("PCL.PageOtherAbout", "PageOtherAbout_Loaded");
         var aboutIl = about.Body.GetILProcessor();
         var versionLabel = about.Body.Instructions.Single(i => i.OpCode == OpCodes.Ldstr && (string)i.Operand == "正式版 2.99.0.0");
-        versionLabel.Operand = "本地修改版 2.99.2 开发预览";
+        versionLabel.Operand = "本地修改版 2.99.3";
         var aboutInfoSetter = about.Body.Instructions.Single(i => i.Operand is MethodReference mr && mr.DeclaringType.FullName == "PCL.MyListItem" && mr.Name == "set_Info");
         // Reuse the net48 reference from the input. Importing typeof(string) from this
         // net10 patch process would inject an incompatible System.Private.CoreLib reference.
@@ -219,10 +220,12 @@ internal static class PatchEngine {
             Instruction.Create(OpCodes.Ldarg_0), Instruction.Create(OpCodes.Call, Method("PCL.PageOtherAbout", "get_ItemAboutPcl")),
             Instruction.Create(OpCodes.Ldstr, ProductName), Instruction.Create(OpCodes.Callvirt, ExistingCall("PCL.MyListItem", "set_Title"))
         }) aboutIl.InsertBefore(aboutFirst, ins);
-        Mark(about, "Identify release 2.99.2 and retain original author credits and both repository URLs.");
+        Mark(about, "Identify release 2.99.3 and retain original author credits and both repository URLs.");
         Attach("PCL.PageOtherAbout", "PageOtherAbout_Loaded", "AttachAbout");
         Attach("PCL.PageInstanceOverall", "PageSetupLaunch_Loaded", "AttachInstance");
         Attach("PCL.PageDownloadInstall", "Init", "AttachDownload");
+        Attach("PCL.FormMain", "FormMain_Loaded", "Start", "PclLocalTools.UpdateCoordinator");
+        Attach("PCL.PageSetupSystem", "Reload", "AttachSystemSettings", "PclLocalTools.UpdateCoordinator");
         var loaderError = Method("PCL.PageDownloadInstall", "GetLoaderError");
         foreach (var ret in loaderError.Body.Instructions.Where(i => i.OpCode == OpCodes.Ret).ToArray()) {
             ret.OpCode = OpCodes.Call; ret.Operand = Tool("PclLocalTools.LogDiagnostics", "ExplainError");

@@ -5,7 +5,7 @@
     <UseWPF>true</UseWPF>
     <LangVersion>latest</LangVersion>
     <AssemblyName>PCL Local Tools</AssemblyName>
-    <Version>2.99.2</Version>
+    <Version>2.99.3</Version>
   </PropertyGroup>
   <ItemGroup><ProjectReference Include="..\PclLocalTools.csproj" /></ItemGroup>
 </Project>
