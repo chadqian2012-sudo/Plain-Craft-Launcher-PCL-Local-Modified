@@ -1,6 +1,6 @@
 # Version Archive / 版本档案
 
-Inventory updated: 2026-10-25. This table covers the PCL launcher executables and upstream source archives located in the available project and backup folders for this release. Each historical download is identified below; no personal game data is included.
+Inventory updated: 2026-10-26. This table covers the PCL launcher executables and upstream source archives located in the available project and backup folders for this release. Each historical download is identified below; no personal game data is included.
 
 | Version | Modification status | What is included / changed | Release |
 |---|---|---|---|
@@ -8,7 +8,9 @@ Inventory updated: 2026-10-25. This table covers the PCL launcher executables an
 | 2.99.0.0 | **Unmodified upstream version** | Original launcher EXE and source snapshot from upstream commit `6b9a50df911c9d68b69b24c979efba477fb14b67`. The modified build is in a separate release below. | [v2.99.0.0](https://github.com/chadqian2012-sudo/Plain-Craft-Launcher-PCL-Local-Modified/releases/tag/v2.99.0.0) |
 | 2.99.0.0 local | **Modified third-party build** | Removed launcher self-update execution and restored the vanilla game download entry for offline accounts. Other launcher behavior was kept from the 2.99.0.0 base. This historical build did not show the local repository URL in About. | [v2.99.0.0-local](https://github.com/chadqian2012-sudo/Plain-Craft-Launcher-PCL-Local-Modified/releases/tag/v2.99.0.0-local) |
 | 2.99.1 local | **Modified third-party build; previous stable release** | Same updater/download changes, plus About-page release identification, credit for 龙腾猫跃 and chadqian2012-sudo, and links to both this repository and upstream PCL. It is based on PCL 2.99.0.0 and is **not** an official PCL 2.99.1 release. | [v2.99.1](https://github.com/chadqian2012-sudo/Plain-Craft-Launcher-PCL-Local-Modified/releases/tag/v2.99.1) |
-| 2.99.2 local | **Modified third-party build; current stable release** | Adds the local save/backup/migration/download/log toolbox and manual Releases link. User confirmed acceptance on 2026-10-25; 47 synthetic checks and 15 static host bindings remain recorded separately. Promoted without rebuilding or changing either ZIP. | [v2.99.2](https://github.com/chadqian2012-sudo/Plain-Craft-Launcher-PCL-Local-Modified/releases/tag/v2.99.2) |
+| 2.99.2 local | **Modified third-party build; previous stable release** | Adds the local save/backup/migration/download/log toolbox and manual Releases link. User confirmed acceptance on 2026-10-25; 47 synthetic checks and 15 static host bindings remain recorded separately. Promoted without rebuilding or changing either ZIP. | [v2.99.2](https://github.com/chadqian2012-sudo/Plain-Craft-Launcher-PCL-Local-Modified/releases/tag/v2.99.2) |
+
+| 2.99.3 local | **Modified third-party build; current stable release** | Optional, dismissible GitHub updates from this repository; verified download/install and recovery. Fixes helper self-lock during recovery and update-notice obstruction of launcher exit confirmation. Windows MCP acceptance and 85 automated checks passed; Minecraft gameplay was not launched. Historical preview ZIPs remain available under their original names. | [v2.99.3](https://github.com/chadqian2012-sudo/Plain-Craft-Launcher-PCL-Local-Modified/releases/tag/v2.99.3) |
 
 ## Declarations
 

@@ -29,7 +29,7 @@ namespace PclLocalTools {
         private string? report;
         private readonly TabControl tabs = new TabControl();
         public ToolboxWindow(LauncherContext context, int selectedTab = 0) {
-            this.context = context; Title = "PCL 本地工具箱 2.99.2 开发预览"; Width = 1080; Height = 760; MinWidth = 800; MinHeight = 580;
+            this.context = context; Title = "PCL 本地工具箱 2.99.3"; Width = 1080; Height = 760; MinWidth = 800; MinHeight = 580;
             FontFamily = new FontFamily("Microsoft YaHei UI"); FontSize = 13; Background = new SolidColorBrush(Color.FromRgb(247, 249, 252)); WindowStartupLocation = WindowStartupLocation.CenterOwner;
             root.Text = context.Root; source.Text = context.Root;
             var layout = new DockPanel { Margin = new Thickness(20) }; Content = layout;
@@ -104,9 +104,14 @@ namespace PclLocalTools {
             logActions.Children.Add(Action("导出脱敏报告", () => { if (report == null) throw new InvalidOperationException("请先分析日志。"); SaveText("PCL-diagnostics.txt", report); }));
             logReport.Height = 350; logs.Children.Add(logReport); logPath.TextChanged += (_, __) => { report = null; logReport.Clear(); };
 
-            var about = Page("版本与手动更新");
-            about.Children.Add(new TextBlock { Text = "第三方本地修改版 2.99.2 开发预览", FontSize = 20, Margin = new Thickness(0, 8, 0, 10) });
-            about.Children.Add(Label("基础版本：PCL 2.99.0.0。原作者：龙腾猫跃（LTCatt）。本地修改：chadqian2012-sudo。\n启动器自我更新、更新下载、文件替换和自动重启的实现继续保持移除。手动打开发布页后，由你选择下载和安装。"));
+            var about = Page("版本与更新");
+            about.Children.Add(new TextBlock { Text = "第三方本地修改版 2.99.3", FontSize = 20, Margin = new Thickness(0, 8, 0, 10) });
+            about.Children.Add(Label("基础版本：PCL 2.99.0.0。原作者：龙腾猫跃（LTCatt）。本地修改：chadqian2012-sudo。\n更新仅来自你的 GitHub 仓库正式版。发现新版会显示可关闭的提示；下载和安装分别需要你确认。上游更新仍禁用。"));
+            var updateRoot = UpdateCoordinator.Root ?? AppDomain.CurrentDomain.BaseDirectory;
+            var automatic = new CheckBox { Content = "启动后自动检查本仓库更新（仅正式版）", IsChecked = UpdateSettings.Read(updateRoot).Enabled, Margin = new Thickness(0, 4, 0, 12) };
+            automatic.Click += (_, __) => { try { var settings = UpdateSettings.Read(updateRoot); settings.Enabled = automatic.IsChecked == true; settings.Write(updateRoot); status.Text = "本仓库自动检查更新设置已保存。"; } catch (Exception ex) { status.Text = "设置未保存：" + ex.Message; automatic.IsChecked = UpdateSettings.Read(updateRoot).Enabled; } };
+            about.Children.Add(automatic);
+            about.Children.Add(Action("立即检查本仓库更新", UpdateCoordinator.CheckNow));
             about.Children.Add(Action("打开本修改版 Releases", Integration.OpenRelease));
             about.Children.Add(Action("打开本修改版源码仓库", () => Integration.OpenUrl(Integration.Repository)));
             about.Children.Add(Action("打开 PCL 上游仓库", () => Integration.OpenUrl("https://github.com/Meloong-Git/PCL")));

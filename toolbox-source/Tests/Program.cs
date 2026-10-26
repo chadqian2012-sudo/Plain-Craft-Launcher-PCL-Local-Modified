@@ -40,6 +40,27 @@ internal static class Program {
     }
     [STAThread]
     private static int Main(string[] args) {
+        if (args.Length == 4 && args[0] == "--verify-update-package") {
+            try {
+                var manifest = UpdateProtocol.Load<UpdateManifest>(args[1]); manifest.Validate(UpdateProtocol.Version);
+                if (manifest.ArchiveName != Path.GetFileName(args[2])) throw new InvalidDataException("Manifest archive filename mismatch.");
+                var payload = UpdateInstaller.Prepare(args[2], manifest, args[3], None);
+                Console.WriteLine("Real packaged archive and all " + manifest.Files.Count + " components passed production SHA-256 verification.");
+                Console.WriteLine("Verification-only extraction: " + payload + "; no installation or process launch.");
+                return 0;
+            } catch (Exception ex) { Console.Error.WriteLine(ex.Message); return 1; }
+        }
+        if (args.Length == 1 && args[0] == "--live-update-check") {
+            try {
+                using (var client = new GitHubUpdateClient()) {
+                    var result = client.Check(UpdateProtocol.Version, None).GetAwaiter().GetResult();
+                    Console.WriteLine("Source: " + UpdateProtocol.Api);
+                    Console.WriteLine("Current: " + UpdateProtocol.Version + "; newer stable release: " + (result?.Version ?? "none"));
+                    Console.WriteLine("Read-only live check succeeded; no download, installation or UI was triggered.");
+                }
+                return 0;
+            } catch (Exception ex) { Console.Error.WriteLine(ex.Message); return 1; }
+        }
         string testRoot = Path.GetFullPath(args[0]); Directory.CreateDirectory(testRoot);
         var run = Path.Combine(testRoot, "run-" + DateTime.Now.ToString("yyyyMMdd-HHmmss") + "-" + Guid.NewGuid().ToString("N").Substring(0, 6)); Directory.CreateDirectory(run);
         try {
@@ -88,6 +109,7 @@ internal static class Program {
             var largeLog = Path.Combine(run, "large.log"); File.WriteAllText(largeLog, new string('x', 3 * 1024 * 1024) + "TAIL", new UTF8Encoding(false));
             var tail = LogDiagnostics.ReadTail(largeLog); Check(tail.Length <= 2 * 1024 * 1024 && tail.EndsWith("TAIL"), "log tail is bounded to two MiB");
             foreach (var result in NetworkTests.Run()) Check(result.Item1, result.Item2);
+            foreach (var result in UpdateTests.Run(run)) Check(result.Item1, result.Item2);
             foreach (var invalid in new[] { "../escape", "/absolute", "C:/escape", "a/../b", "CON.txt", "file:stream", "name.", "a//b" }) Rejected(() => FileSafety.SafeRelative(invalid), "reject unsafe entry " + invalid);
             PCL.ModMinecraft.McFolderSelected = root; PCL.PageInstanceLeft.Instance = new PCL.FakeInstance { PathVersion = Path.Combine(root, "versions", "26.3-Fabric"), PathIndie = Path.Combine(root, "versions", "26.3-Fabric") };
             var page = new PCL.FakePage(); Integration.AttachAbout(page); Integration.AttachAbout(page); Check(page.PanMain.Children.Count == 1, "about-page integration idempotent");
@@ -96,7 +118,7 @@ internal static class Program {
             PCL.Settings.Value = "existing>D:\\FixtureExisting\\";
             var fakeContext = new LauncherContext { Launcher = Assembly.GetExecutingAssembly() }; Integration.RegisterFolder(fakeContext, migrated); Integration.RegisterFolder(fakeContext, migrated);
             Check(PCL.Settings.Value.StartsWith("existing>D:\\FixtureExisting\\|") && PCL.ModMinecraft.McFolderList.Count == 1, "explicit folder registration preserves existing entries and avoids duplicates");
-            var window = new ToolboxWindow(new LauncherContext { Root = @"X:\Games\.minecraft", EffectiveDirectory = @"X:\Games\.minecraft\versions\26.3-Fabric" }); Check(window.Title.Contains("2.99.2") && !window.IsVisible, "toolbox constructs without displaying or running operations");
+            var window = new ToolboxWindow(new LauncherContext { Root = @"X:\Games\.minecraft", EffectiveDirectory = @"X:\Games\.minecraft\versions\26.3-Fabric" }); Check(window.Title.Contains("2.99.3") && !window.IsVisible, "toolbox constructs without displaying or running operations");
             var view = (FrameworkElement)window.Content; window.Content = null;
             var tabs = ((Panel)view).Children.OfType<TabControl>().Single();
             var surface = new Border { Background = window.Background, Child = view };
